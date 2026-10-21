@@ -12,6 +12,8 @@
 		079AD05889C482DFEA5F4152 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531B0AD744BE6DE1FF88A0A1 /* ShareViewController.swift */; };
 		259A4A107133D635121F43C6 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50D2C209C5D90514290C9D7 /* AppGroup.swift */; };
 		27ED946D72ADAEBA942BFE8F /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F8F0001C1D4701780251C /* DownloadManager.swift */; };
+		2ED4B5E03EE0D0EC4817F0E9 /* AnimatedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A455EB036FDF00572F8E7 /* AnimatedBackground.swift */; };
+		3B688586B5CF8BBD954F4F47 /* ReelCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E432AF56B31D9CE1BC8181 /* ReelCard.swift */; };
 		49B8925C533DFD4BAD2C7652 /* InstagramURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CBE8A3867A9B379CB1F0C8 /* InstagramURL.swift */; };
 		4C33C1F0CA2E68B9F2CBAC98 /* InstagramURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CBE8A3867A9B379CB1F0C8 /* InstagramURL.swift */; };
 		68335A6B94DABC1DF4A32425 /* MediaExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78028CAAA97E68B8B7057FBC /* MediaExtractor.swift */; };
@@ -27,7 +29,6 @@
 		D7E1415E73FC2268DE97FC0A /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50D2C209C5D90514290C9D7 /* AppGroup.swift */; };
 		DC8B350A664EA198FD20CA67 /* WebViewExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9330BE7C8F88525FF604B8C /* WebViewExtractor.swift */; };
 		DE4B5B1F8BF8F5EBB6B985C0 /* SavedReel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85297DBFC0A6A03E69F9AE7 /* SavedReel.swift */; };
-		DE96FBE2A846342302A85C8E /* ReelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC13E56375A2976F26DB47 /* ReelRow.swift */; };
 		DEA5A75B6E116178BC9FD463 /* embed-reel.html in Resources */ = {isa = PBXBuildFile; fileRef = 859DA2B1D19E7CB59DC0D12F /* embed-reel.html */; };
 		E46EDEEF60226EB2AFD18A0E /* ReelSaverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D09404F9AA6FA31A9E0AA7 /* ReelSaverApp.swift */; };
 		E9CD2C7670CF4C5EC0277D50 /* InstagramURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CBE8A3867A9B379CB1F0C8 /* InstagramURL.swift */; };
@@ -67,10 +68,11 @@
 		17BFD93FA49DB7AB4CFED28D /* FileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
 		221F8F0001C1D4701780251C /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		23D09404F9AA6FA31A9E0AA7 /* ReelSaverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelSaverApp.swift; sourceTree = "<group>"; };
-		2CEC13E56375A2976F26DB47 /* ReelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelRow.swift; sourceTree = "<group>"; };
+		26E432AF56B31D9CE1BC8181 /* ReelCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelCard.swift; sourceTree = "<group>"; };
 		40B5115A0BFBE6649E2531E9 /* ExtractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractionTests.swift; sourceTree = "<group>"; };
 		4FA1E1800C650A2DB6C6B7DA /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		531B0AD744BE6DE1FF88A0A1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		6F1A455EB036FDF00572F8E7 /* AnimatedBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBackground.swift; sourceTree = "<group>"; };
 		78028CAAA97E68B8B7057FBC /* MediaExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaExtractor.swift; sourceTree = "<group>"; };
 		783D928D73645477DED62CD7 /* ReelSaver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReelSaver.entitlements; sourceTree = "<group>"; };
 		859DA2B1D19E7CB59DC0D12F /* embed-reel.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "embed-reel.html"; sourceTree = "<group>"; };
@@ -127,8 +129,9 @@
 		B664189FC7B9CCCF9CD953A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6F1A455EB036FDF00572F8E7 /* AnimatedBackground.swift */,
 				4FA1E1800C650A2DB6C6B7DA /* LibraryView.swift */,
-				2CEC13E56375A2976F26DB47 /* ReelRow.swift */,
+				26E432AF56B31D9CE1BC8181 /* ReelCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ED4B5E03EE0D0EC4817F0E9 /* AnimatedBackground.swift in Sources */,
 				BBBFAAC5B66F83860B64637C /* AppGroup.swift in Sources */,
 				27ED946D72ADAEBA942BFE8F /* DownloadManager.swift in Sources */,
 				C784611FAA4F90C7689A9108 /* EmbedHTMLExtractor.swift in Sources */,
@@ -330,7 +334,7 @@
 				4C33C1F0CA2E68B9F2CBAC98 /* InstagramURL.swift in Sources */,
 				7136E8ED7DA7FC25BE194A31 /* LibraryView.swift in Sources */,
 				68335A6B94DABC1DF4A32425 /* MediaExtractor.swift in Sources */,
-				DE96FBE2A846342302A85C8E /* ReelRow.swift in Sources */,
+				3B688586B5CF8BBD954F4F47 /* ReelCard.swift in Sources */,
 				E46EDEEF60226EB2AFD18A0E /* ReelSaverApp.swift in Sources */,
 				7ECF3E6F9F5867EC85DDD4D0 /* SavedReel.swift in Sources */,
 				DC8B350A664EA198FD20CA67 /* WebViewExtractor.swift in Sources */,
