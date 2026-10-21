@@ -157,7 +157,11 @@ final class DownloadManager {
 
     /// Copies the finished video into the user's photo library. Returns false
     /// if permission was refused — the file is still in the in-app library.
-    private func saveToPhotos(_ fileURL: URL) async -> Bool {
+    ///
+    /// `nonisolated` matters here: Photos runs the `performChanges` block on
+    /// its own queue, and a block inheriting this type's main-actor isolation
+    /// traps the moment it executes there.
+    private nonisolated func saveToPhotos(_ fileURL: URL) async -> Bool {
         let status = await PHPhotoLibrary.requestAuthorization(for: .addOnly)
         guard status == .authorized || status == .limited else { return false }
 

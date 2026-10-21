@@ -38,18 +38,24 @@ struct EmbedHTMLExtractor: MediaExtractor {
             throw ExtractionError.unavailable
         }
 
-        guard let mediaURL = Self.firstMatch(of: Self.videoPatterns, in: html)
-            .flatMap(URL.init(string:))
-        else {
+        // Instagram ships the post JSON inside a JavaScript string literal, so
+        // it arrives escaped twice: `\\"video_url\\":\\"https:\\\\/\\\\/...`. Collapsing
+        // the whole document first lets one set of plain patterns match both
+        // that and the singly-escaped markup older responses use.
+        let normalized = Self.unescape(html)
+        func find(_ patterns: [String]) -> String? {
+            Self.firstMatch(of: patterns, in: html) ?? Self.firstMatch(of: patterns, in: normalized)
+        }
+
+        guard let mediaURL = find(Self.videoPatterns).flatMap(URL.init(string:)) else {
             throw ExtractionError.mediaNotFound
         }
 
         return ExtractedMedia(
             mediaURL: mediaURL,
-            thumbnailURL: Self.firstMatch(of: Self.thumbnailPatterns, in: html)
-                .flatMap(URL.init(string:)),
-            author: Self.firstMatch(of: Self.authorPatterns, in: html),
-            caption: Self.firstMatch(of: Self.captionPatterns, in: html),
+            thumbnailURL: find(Self.thumbnailPatterns).flatMap(URL.init(string:)),
+            author: find(Self.authorPatterns),
+            caption: find(Self.captionPatterns),
             shortcode: shortcode
         )
     }
@@ -125,12 +131,23 @@ struct EmbedHTMLExtractor: MediaExtractor {
         return nil
     }
 
-    /// Instagram embeds JSON inside HTML, so captures arrive doubly escaped:
-    /// `\/` for slashes, `\uXXXX` for non-ASCII, and HTML entities on top.
+    /// Collapses the layered escaping Instagram wraps its JSON in.
+    ///
+    /// The payload sits in a JS string inside HTML, so a slash can arrive as
+    /// `\\\\/` and a quote as `\\"`. One pass isn't enough — unescaping `\\\\/` yields
+    /// `\\/`, which still needs another — so repeat until it settles. Five
+    /// rounds is well past any nesting seen in practice and bounds the work.
     static func unescape(_ raw: String) -> String {
         var value = raw
-            .replacingOccurrences(of: #"\/"#, with: "/")
-            .replacingOccurrences(of: #"\""#, with: "\"")
+        for _ in 0..<5 {
+            let before = value
+            value = value
+                .replacingOccurrences(of: #"\\"#, with: #"\"#)
+                .replacingOccurrences(of: #"\/"#, with: "/")
+                .replacingOccurrences(of: #"\""#, with: "\"")
+            if value == before { break }
+        }
+        value = value
             .replacingOccurrences(of: "&amp;", with: "&")
             .replacingOccurrences(of: "&quot;", with: "\"")
             .replacingOccurrences(of: "&#039;", with: "'")
