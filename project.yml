@@ -1,0 +1,50 @@
+name: ReelSaver
+options:
+  bundleIdPrefix: com.shaharia
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_STRICT_CONCURRENCY: complete
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  ReelSaver:
+    type: application
+    platform: iOS
+    sources:
+      - ReelSaver
+      - Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shaharia.reelsaver
+        INFOPLIST_FILE: ReelSaver/Info.plist
+        CODE_SIGN_ENTITLEMENTS: ReelSaver/ReelSaver.entitlements
+        GENERATE_INFOPLIST_FILE: NO
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        TARGETED_DEVICE_FAMILY: "1"
+    dependencies:
+      - target: ShareExtension
+        embed: true
+
+  ShareExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - ShareExtension
+      - path: Shared
+        excludes:
+          - "Download/**"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shaharia.reelsaver.share
+        INFOPLIST_FILE: ShareExtension/Info.plist
+        CODE_SIGN_ENTITLEMENTS: ShareExtension/ShareExtension.entitlements
+        GENERATE_INFOPLIST_FILE: NO
+        TARGETED_DEVICE_FAMILY: "1"
