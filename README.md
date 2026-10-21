@@ -15,6 +15,27 @@ open ReelSaver.xcodeproj
 Pick a simulator and run. On a device you'll need to set `DEVELOPMENT_TEAM`
 in `project.yml` and register the App Group `group.com.shaharia.reelsaver`.
 
+## Tests
+
+```bash
+xcodebuild test -scheme ReelSaver -sdk iphonesimulator \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max'
+```
+
+`ReelSaverTests/Fixtures/embed-reel.html` is a trimmed slice of a real embed
+response, kept byte-for-byte as Instagram escaped it (signed CDN query values
+redacted). `EmbedHTMLExtractor.parse` runs against it with no network, so a
+change in Instagram's markup fails the build instead of quietly returning
+"couldn't find a video" on device.
+
+When the parser does break, re-record the fixture:
+
+```bash
+curl -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 \
+  (KHTML, like Gecko) Version/17.0 Safari/605.1.15" \
+  "https://www.instagram.com/reel/<shortcode>/embed/captioned/"
+```
+
 ## How it works
 
 Two ways in. The share extension is the main one — in Instagram, tap Share and

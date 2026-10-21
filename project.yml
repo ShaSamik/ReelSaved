@@ -48,3 +48,34 @@ targets:
         CODE_SIGN_ENTITLEMENTS: ShareExtension/ShareExtension.entitlements
         GENERATE_INFOPLIST_FILE: NO
         TARGETED_DEVICE_FAMILY: "1"
+
+  ReelSaverTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: ReelSaverTests
+        excludes:
+          - "Fixtures/**"
+      - path: ReelSaverTests/Fixtures
+        buildPhase: resources
+      # Compile the shared code straight into the bundle: these are logic
+      # tests, so there is no host app to reach into.
+      - path: Shared
+        excludes:
+          - "Download/**"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shaharia.reelsaver.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  ReelSaver:
+    build:
+      targets:
+        ReelSaver: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - ReelSaverTests

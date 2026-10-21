@@ -27,7 +27,14 @@ struct EmbedHTMLExtractor: MediaExtractor {
         }
 
         let html = try await fetchHTML(embed)
+        return try Self.parse(html: html, shortcode: shortcode)
+    }
 
+    /// Turns embed-page markup into media, with no network involved.
+    ///
+    /// Split out from `extract` so it can be pinned to a recorded response.
+    /// This is the part Instagram breaks, and the part worth testing.
+    static func parse(html: String, shortcode: String) throws -> ExtractedMedia {
         // A login wall comes back as a real page, not an HTTP error.
         if html.contains("loginForm") || html.contains("Log in to Instagram") {
             throw ExtractionError.loginRequired
@@ -38,24 +45,23 @@ struct EmbedHTMLExtractor: MediaExtractor {
             throw ExtractionError.unavailable
         }
 
-        // Instagram ships the post JSON inside a JavaScript string literal, so
-        // it arrives escaped twice: `\\"video_url\\":\\"https:\\\\/\\\\/...`. Collapsing
-        // the whole document first lets one set of plain patterns match both
-        // that and the singly-escaped markup older responses use.
-        let normalized = Self.unescape(html)
+        // The post JSON is embedded in a JavaScript string literal, so it is
+        // escaped twice. Collapsing the whole document first lets one set of
+        // plain patterns match both that and singly-escaped older responses.
+        let normalized = unescape(html)
         func find(_ patterns: [String]) -> String? {
-            Self.firstMatch(of: patterns, in: html) ?? Self.firstMatch(of: patterns, in: normalized)
+            firstMatch(of: patterns, in: html) ?? firstMatch(of: patterns, in: normalized)
         }
 
-        guard let mediaURL = find(Self.videoPatterns).flatMap(URL.init(string:)) else {
+        guard let mediaURL = find(videoPatterns).flatMap(URL.init(string:)) else {
             throw ExtractionError.mediaNotFound
         }
 
         return ExtractedMedia(
             mediaURL: mediaURL,
-            thumbnailURL: find(Self.thumbnailPatterns).flatMap(URL.init(string:)),
-            author: find(Self.authorPatterns),
-            caption: find(Self.captionPatterns),
+            thumbnailURL: find(thumbnailPatterns).flatMap(URL.init(string:)),
+            author: find(authorPatterns),
+            caption: find(captionPatterns),
             shortcode: shortcode
         )
     }
@@ -92,7 +98,7 @@ struct EmbedHTMLExtractor: MediaExtractor {
     // Ordered most-specific first. The JSON keys are the reliable ones when
     // present; the og: meta tags are the fallback that survives most redesigns.
 
-    private static let videoPatterns = [
+    static let videoPatterns = [
         #""video_url"\s*:\s*"([^"]+)""#,
         #""video_versions"\s*:\s*\[\s*\{[^}]*?"url"\s*:\s*"([^"]+)""#,
         #"<meta[^>]+property="og:video"[^>]+content="([^"]+)""#,
@@ -100,17 +106,17 @@ struct EmbedHTMLExtractor: MediaExtractor {
         #"<video[^>]+src="([^"]+)""#,
     ]
 
-    private static let thumbnailPatterns = [
+    static let thumbnailPatterns = [
         #""display_url"\s*:\s*"([^"]+)""#,
         #"<meta[^>]+property="og:image"[^>]+content="([^"]+)""#,
     ]
 
-    private static let authorPatterns = [
+    static let authorPatterns = [
         #""owner"\s*:\s*\{[^}]*?"username"\s*:\s*"([^"]+)""#,
         #""username"\s*:\s*"([^"]+)""#,
     ]
 
-    private static let captionPatterns = [
+    static let captionPatterns = [
         #"<meta[^>]+property="og:description"[^>]+content="([^"]+)""#,
     ]
 

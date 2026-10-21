@@ -12,20 +12,28 @@
 		079AD05889C482DFEA5F4152 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531B0AD744BE6DE1FF88A0A1 /* ShareViewController.swift */; };
 		259A4A107133D635121F43C6 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50D2C209C5D90514290C9D7 /* AppGroup.swift */; };
 		27ED946D72ADAEBA942BFE8F /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F8F0001C1D4701780251C /* DownloadManager.swift */; };
+		49B8925C533DFD4BAD2C7652 /* InstagramURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CBE8A3867A9B379CB1F0C8 /* InstagramURL.swift */; };
 		4C33C1F0CA2E68B9F2CBAC98 /* InstagramURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CBE8A3867A9B379CB1F0C8 /* InstagramURL.swift */; };
 		68335A6B94DABC1DF4A32425 /* MediaExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78028CAAA97E68B8B7057FBC /* MediaExtractor.swift */; };
 		6DA75151981A57DA4E886B0C /* MediaExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78028CAAA97E68B8B7057FBC /* MediaExtractor.swift */; };
 		7136E8ED7DA7FC25BE194A31 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA1E1800C650A2DB6C6B7DA /* LibraryView.swift */; };
 		7ECF3E6F9F5867EC85DDD4D0 /* SavedReel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85297DBFC0A6A03E69F9AE7 /* SavedReel.swift */; };
 		9E7C79C738B2F33B3D34C888 /* SavedReel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85297DBFC0A6A03E69F9AE7 /* SavedReel.swift */; };
+		AADFEA25E43CA9EC46AB3556 /* WebViewExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9330BE7C8F88525FF604B8C /* WebViewExtractor.swift */; };
+		B37B8E762FD78EA0476E8557 /* MediaExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78028CAAA97E68B8B7057FBC /* MediaExtractor.swift */; };
 		BBBFAAC5B66F83860B64637C /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50D2C209C5D90514290C9D7 /* AppGroup.swift */; };
 		C709122FD06B64574AB0AAC5 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BFD93FA49DB7AB4CFED28D /* FileDownloader.swift */; };
 		C784611FAA4F90C7689A9108 /* EmbedHTMLExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEE82CDD30D32E0D54F905 /* EmbedHTMLExtractor.swift */; };
+		D7E1415E73FC2268DE97FC0A /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50D2C209C5D90514290C9D7 /* AppGroup.swift */; };
 		DC8B350A664EA198FD20CA67 /* WebViewExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9330BE7C8F88525FF604B8C /* WebViewExtractor.swift */; };
+		DE4B5B1F8BF8F5EBB6B985C0 /* SavedReel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85297DBFC0A6A03E69F9AE7 /* SavedReel.swift */; };
 		DE96FBE2A846342302A85C8E /* ReelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEC13E56375A2976F26DB47 /* ReelRow.swift */; };
+		DEA5A75B6E116178BC9FD463 /* embed-reel.html in Resources */ = {isa = PBXBuildFile; fileRef = 859DA2B1D19E7CB59DC0D12F /* embed-reel.html */; };
 		E46EDEEF60226EB2AFD18A0E /* ReelSaverApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D09404F9AA6FA31A9E0AA7 /* ReelSaverApp.swift */; };
 		E9CD2C7670CF4C5EC0277D50 /* InstagramURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CBE8A3867A9B379CB1F0C8 /* InstagramURL.swift */; };
+		ED000BD8CD86745FAF19C918 /* ExtractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B5115A0BFBE6649E2531E9 /* ExtractionTests.swift */; };
 		F734C955755FE2E07D984190 /* WebViewExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9330BE7C8F88525FF604B8C /* WebViewExtractor.swift */; };
+		F9A4202951D9672471AA042E /* EmbedHTMLExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEE82CDD30D32E0D54F905 /* EmbedHTMLExtractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,13 +68,16 @@
 		221F8F0001C1D4701780251C /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		23D09404F9AA6FA31A9E0AA7 /* ReelSaverApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelSaverApp.swift; sourceTree = "<group>"; };
 		2CEC13E56375A2976F26DB47 /* ReelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelRow.swift; sourceTree = "<group>"; };
+		40B5115A0BFBE6649E2531E9 /* ExtractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractionTests.swift; sourceTree = "<group>"; };
 		4FA1E1800C650A2DB6C6B7DA /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		531B0AD744BE6DE1FF88A0A1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		78028CAAA97E68B8B7057FBC /* MediaExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaExtractor.swift; sourceTree = "<group>"; };
 		783D928D73645477DED62CD7 /* ReelSaver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReelSaver.entitlements; sourceTree = "<group>"; };
+		859DA2B1D19E7CB59DC0D12F /* embed-reel.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "embed-reel.html"; sourceTree = "<group>"; };
 		88CBE8A3867A9B379CB1F0C8 /* InstagramURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramURL.swift; sourceTree = "<group>"; };
 		A9330BE7C8F88525FF604B8C /* WebViewExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewExtractor.swift; sourceTree = "<group>"; };
 		B146E1B87AF26762CBC70467 /* ReelSaver.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ReelSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD10874860EEA9832D6F0ADF /* ReelSaverTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ReelSaverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4FEE82CDD30D32E0D54F905 /* EmbedHTMLExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedHTMLExtractor.swift; sourceTree = "<group>"; };
 		C85297DBFC0A6A03E69F9AE7 /* SavedReel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedReel.swift; sourceTree = "<group>"; };
 		F3C415F377B1A2B588AEEFF9 /* ShareExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,10 +105,19 @@
 			path = Download;
 			sourceTree = "<group>";
 		};
+		80895AFBD500D4A9AB3E61AD /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				859DA2B1D19E7CB59DC0D12F /* embed-reel.html */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
 		8771767A0211C0024109238C = {
 			isa = PBXGroup;
 			children = (
 				D505CB9D59FED5E2047B8DD1 /* ReelSaver */,
+				C80D7E279789FEB6DD30590B /* ReelSaverTests */,
 				D725D78975801081E1686B01 /* Shared */,
 				F93D0E6FF27C49467429D38C /* ShareExtension */,
 				DB80B985D27603FF2CAA775A /* Products */,
@@ -111,6 +131,15 @@
 				2CEC13E56375A2976F26DB47 /* ReelRow.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C80D7E279789FEB6DD30590B /* ReelSaverTests */ = {
+			isa = PBXGroup;
+			children = (
+				40B5115A0BFBE6649E2531E9 /* ExtractionTests.swift */,
+				80895AFBD500D4A9AB3E61AD /* Fixtures */,
+			);
+			path = ReelSaverTests;
 			sourceTree = "<group>";
 		};
 		D505CB9D59FED5E2047B8DD1 /* ReelSaver */ = {
@@ -139,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				B146E1B87AF26762CBC70467 /* ReelSaver.app */,
+				BD10874860EEA9832D6F0ADF /* ReelSaverTests.xctest */,
 				F3C415F377B1A2B588AEEFF9 /* ShareExtension.appex */,
 			);
 			name = Products;
@@ -201,6 +231,24 @@
 			productReference = B146E1B87AF26762CBC70467 /* ReelSaver.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C680AF57A39B326C42BDE843 /* ReelSaverTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC8CA9582142E3986D52EAE1 /* Build configuration list for PBXNativeTarget "ReelSaverTests" */;
+			buildPhases = (
+				C50B10596E46BED9CF48508B /* Sources */,
+				2AA638F2D27001C3C98BE0BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReelSaverTests;
+			packageProductDependencies = (
+			);
+			productName = ReelSaverTests;
+			productReference = BD10874860EEA9832D6F0ADF /* ReelSaverTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -215,6 +263,10 @@
 						ProvisioningStyle = Automatic;
 					};
 					071EB679B44C8BAD4E2842D4 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					C680AF57A39B326C42BDE843 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
@@ -236,9 +288,21 @@
 			targets = (
 				071EB679B44C8BAD4E2842D4 /* ReelSaver */,
 				0019124A25A8C0FB76AC2C0C /* ShareExtension */,
+				C680AF57A39B326C42BDE843 /* ReelSaverTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2AA638F2D27001C3C98BE0BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEA5A75B6E116178BC9FD463 /* embed-reel.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		44DE2BAB2DBDC9F8CE8B0572 /* Sources */ = {
@@ -273,6 +337,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C50B10596E46BED9CF48508B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7E1415E73FC2268DE97FC0A /* AppGroup.swift in Sources */,
+				F9A4202951D9672471AA042E /* EmbedHTMLExtractor.swift in Sources */,
+				ED000BD8CD86745FAF19C918 /* ExtractionTests.swift in Sources */,
+				49B8925C533DFD4BAD2C7652 /* InstagramURL.swift in Sources */,
+				B37B8E762FD78EA0476E8557 /* MediaExtractor.swift in Sources */,
+				DE4B5B1F8BF8F5EBB6B985C0 /* SavedReel.swift in Sources */,
+				AADFEA25E43CA9EC46AB3556 /* WebViewExtractor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -284,6 +362,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1D9E3BD394E469EF1C326AB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shaharia.reelsaver.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		50D97BC50BD14F6F48C4DA9D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -485,6 +579,22 @@
 			};
 			name = Debug;
 		};
+		E44615382D23EC9753A87D02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shaharia.reelsaver.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -511,6 +621,15 @@
 			buildConfigurations = (
 				C0A355B5547EF1A468822EAB /* Debug */,
 				BC9E26C99517B9B6CB689200 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EC8CA9582142E3986D52EAE1 /* Build configuration list for PBXNativeTarget "ReelSaverTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D9E3BD394E469EF1C326AB4 /* Debug */,
+				E44615382D23EC9753A87D02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
