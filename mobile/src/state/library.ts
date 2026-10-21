@@ -1,5 +1,5 @@
 import { File } from 'expo-file-system';
-import * as MediaLibrary from 'expo-media-library';
+import { Asset, requestPermissionsAsync } from 'expo-media-library';
 
 import { ChainedExtractor, EmbedHtmlExtractor } from '../extraction/embedExtractor';
 import { ExtractionError, MediaExtractor, SAFARI_USER_AGENT, suggestedFilename } from '../extraction/types';
@@ -118,7 +118,7 @@ async function process(url: string): Promise<void> {
     const destination = mediaFile(filename);
     if (destination.exists) destination.delete();
 
-    await File.downloadFileAsync(media.mediaUrl, mediaDirectory(), {
+    const downloaded = await File.downloadFileAsync(media.mediaUrl, mediaDirectory(), {
       headers: {
         'User-Agent': SAFARI_USER_AGENT,
         // Instagram's CDN rejects media requests without a plausible referer.
@@ -133,14 +133,20 @@ async function process(url: string): Promise<void> {
       },
     });
 
-    // downloadFileAsync names the file from the URL, so move it to the stable
-    // shortcode-based name the library expects.
-    const downloaded = landedFile(media.mediaUrl);
-    if (downloaded && downloaded.uri !== destination.uri) {
+    // downloadFileAsync names the file after the URL, so rename it to the
+    // stable shortcode-based name the library looks it up by. It returns the
+    // file it actually wrote — guessing the name from the URL is wrong, since
+    // the CDN path carries a query string and its own basename.
+    if (downloaded.uri !== destination.uri) {
+      if (destination.exists) destination.delete();
       downloaded.move(destination);
     }
 
-    const size = destination.exists ? destination.size ?? 0 : 0;
+    // A File instance caches what it saw when it was made, so the handle
+    // created before the download still reports the old state after the move.
+    // Re-open the path to read the real size.
+    const saved = mediaFile(filename);
+    const size = saved.exists ? saved.size ?? 0 : 0;
     if (size <= 0) throw new ExtractionError('mediaNotFound');
 
     patch(key, {
@@ -150,7 +156,7 @@ async function process(url: string): Promise<void> {
       bytesExpected: size,
     });
 
-    patch(key, { savedToLibrary: await saveToPhotos(destination) });
+    patch(key, { savedToLibrary: await saveToPhotos(saved) });
   } catch (error) {
     const message =
       error instanceof ExtractionError ? error.message : (error as Error).message;
@@ -161,27 +167,16 @@ async function process(url: string): Promise<void> {
   }
 }
 
-/** The file downloadFileAsync just wrote, named after the URL's last path
- *  component with its query string stripped. */
-function landedFile(url: string): File | null {
-  try {
-    const name = new URL(url).pathname.split('/').filter(Boolean).pop();
-    if (!name) return null;
-    const file = mediaFile(name);
-    return file.exists ? file : null;
-  } catch {
-    return null;
-  }
-}
-
 /** Copies the finished video into the OS gallery — Photos on iOS, MediaStore
  *  on Android. Returns false if permission was refused; the file is still in
  *  the in-app library either way. */
 async function saveToPhotos(file: File): Promise<boolean> {
   try {
-    const { granted } = await MediaLibrary.requestPermissionsAsync();
+    // writeOnly: the app only ever adds videos, so asking to read the whole
+    // library would be asking for more than it needs.
+    const { granted } = await requestPermissionsAsync(true);
     if (!granted) return false;
-    await MediaLibrary.createAssetAsync(file.uri);
+    await Asset.create(file.uri);
     return true;
   } catch {
     return false;

@@ -4,7 +4,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
@@ -13,6 +12,7 @@ import {
   Modal,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { VideoView, useVideoPlayer } from 'expo-video';
 
 import { AnimatedBackground } from './src/ui/AnimatedBackground';
@@ -46,6 +46,7 @@ export default function App() {
   const canSubmit = /^https?:\/\/\S+$/i.test(link.trim());
 
   return (
+    <SafeAreaProvider>
     <View style={styles.root}>
       <StatusBar barStyle="light-content" />
       <AnimatedBackground />
@@ -115,6 +116,7 @@ export default function App() {
 
       <PlayerModal reel={playing} onClose={() => setPlaying(null)} />
     </View>
+    </SafeAreaProvider>
   );
 }
 
