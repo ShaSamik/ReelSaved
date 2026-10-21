@@ -1,16 +1,12 @@
-import { test, describe } from 'node:test';
-import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 import { isShareLink, shortcodeFrom } from '../instagramUrl';
 import { parse, unescape } from '../embedExtractor';
 import { ExtractionError } from '../types';
 
-const here = dirname(fileURLToPath(import.meta.url));
 const fixture = (name: string) =>
-  readFileSync(join(here, 'fixtures', `${name}.html`), 'utf8');
+  readFileSync(join(__dirname, 'fixtures', `${name}.html`), 'utf8');
 
 describe('Instagram URL parsing', () => {
   test('shortcode is read from every canonical link shape', () => {
@@ -23,7 +19,7 @@ describe('Instagram URL parsing', () => {
       ['https://m.instagram.com/reel/Cx1AbC/', 'Cx1AbC'],
     ];
     for (const [link, expected] of cases) {
-      assert.equal(shortcodeFrom(link), expected, link);
+      expect(shortcodeFrom(link)).toBe(expected);
     }
   });
 
@@ -34,7 +30,7 @@ describe('Instagram URL parsing', () => {
       'https://example.com/reel/Cx1AbC/',
       'not a url at all',
     ]) {
-      assert.equal(shortcodeFrom(link), null, link);
+      expect(shortcodeFrom(link)).toBeNull();
     }
   });
 
@@ -43,15 +39,14 @@ describe('Instagram URL parsing', () => {
   // was never followed. Every reel shared from the Instagram app failed.
   test('share links are not mistaken for shortcodes', () => {
     const url = 'https://www.instagram.com/share/reel/_xYz123/';
-    assert.equal(isShareLink(url), true);
-    assert.equal(shortcodeFrom(url), null);
+    expect(isShareLink(url)).toBe(true);
+    expect(shortcodeFrom(url)).toBeNull();
   });
 
   test('query parameters are stripped from the shortcode', () => {
-    assert.equal(
+    expect(
       shortcodeFrom('https://www.instagram.com/reel/DeHtg27jeRl/?exln=MWlmMzkyaTFkNHhmdQ=='),
-      'DeHtg27jeRl',
-    );
+    ).toBe('DeHtg27jeRl');
   });
 });
 
@@ -60,14 +55,14 @@ describe('Embed page parsing', () => {
   // JavaScript string, so one unescape pass turns `\\\/` into `\/` — still
   // not a slash. Unescaping has to repeat until the string settles.
   test('escaping is collapsed however many layers deep it is', () => {
-    assert.equal(unescape('https:\\/\\/cdn.example\\/v.mp4'), 'https://cdn.example/v.mp4');
-    assert.equal(unescape('https:\\\\\\/\\\\\\/cdn.example\\\\\\/v.mp4'), 'https://cdn.example/v.mp4');
-    assert.equal(unescape('a\\"b'), 'a"b');
+    expect(unescape('https:\\/\\/cdn.example\\/v.mp4')).toBe('https://cdn.example/v.mp4');
+    expect(unescape('https:\\\\\\/\\\\\\/cdn.example\\\\\\/v.mp4')).toBe('https://cdn.example/v.mp4');
+    expect(unescape('a\\"b')).toBe('a"b');
   });
 
   test('html entities and unicode escapes are decoded', () => {
-    assert.equal(unescape('a&amp;b&quot;c'), 'a&b"c');
-    assert.equal(unescape('caf\\u00e9 \\u2728'), 'café ✨');
+    expect(unescape('a&amp;b&quot;c')).toBe('a&b"c');
+    expect(unescape('caf\\u00e9 \\u2728')).toBe('café ✨');
   });
 
   // Pinned to a real response. If Instagram reshapes its markup, this fails
@@ -75,35 +70,30 @@ describe('Embed page parsing', () => {
   test('a recorded live response still parses', () => {
     const media = parse(fixture('embed-reel'), 'DeHtg27jeRl');
 
-    assert.equal(media.shortcode, 'DeHtg27jeRl');
-    assert.equal(media.author, 'v8roll');
-    assert.match(media.mediaUrl, /^https:\/\//);
-    assert.match(media.mediaUrl, /cdninstagram\.com/);
-    assert.match(media.mediaUrl, /\.mp4/);
-    assert.match(media.thumbnailUrl ?? '', /^https:\/\//);
+    expect(media.shortcode).toBe('DeHtg27jeRl');
+    expect(media.author).toBe('v8roll');
+    expect(media.mediaUrl).toMatch(/^https:\/\//);
+    expect(media.mediaUrl).toMatch(/cdninstagram\.com/);
+    expect(media.mediaUrl).toMatch(/\.mp4/);
+    expect(media.thumbnailUrl ?? '').toMatch(/^https:\/\//);
 
     // A slash that survived as a backslash means the unescaper regressed.
-    assert.ok(!media.mediaUrl.includes('\\'), 'media URL still contains a backslash');
+    expect(!media.mediaUrl.includes('\\')).toBe(true);
   });
 
   test('a deleted or private reel is reported as unavailable', () => {
-    assert.throws(
-      () => parse('<html><body><div class="EmbedBrokenMedia">x</div></body></html>', 'abc'),
-      (e: unknown) => e instanceof ExtractionError && e.kind === 'unavailable',
-    );
+    expect(() =>
+      parse('<html><body><div class="EmbedBrokenMedia">x</div></body></html>', 'abc'),
+    ).toThrow(expect.objectContaining({ kind: 'unavailable' }));
   });
 
   test('a login wall is reported as needing a login', () => {
-    assert.throws(
-      () => parse('<html><body><form id="loginForm"></form></body></html>', 'abc'),
-      (e: unknown) => e instanceof ExtractionError && e.kind === 'loginRequired',
-    );
+    expect(() =>
+      parse('<html><body><form id="loginForm"></form></body></html>', 'abc'),
+    ).toThrow(expect.objectContaining({ kind: 'loginRequired' }));
   });
 
   test('markup with no video is reported as not found', () => {
-    assert.throws(
-      () => parse('<html><body>nothing</body></html>', 'abc'),
-      (e: unknown) => e instanceof ExtractionError && e.kind === 'mediaNotFound',
-    );
+    expect(() => parse('<html><body>nothing</body></html>', 'abc')).toThrow(expect.objectContaining({ kind: 'mediaNotFound' }));
   });
 });
